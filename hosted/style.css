@@ -1,0 +1,416 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans|Roboto&display=swap');
+html, body {
+  background: #F7F7F2;
+  background-attachment: local;
+  background-image: url("/assets/img/BG.png");
+  background-repeat: repeat-x;
+  background-size: 300px 200px;
+  font-family: 'Open Sans', sans-serif;
+  height: 100%;
+  margin: 0;
+  overflow-x: hidden;
+  padding: 0;
+  width: 100%;
+}
+
+h1, h2, h3 {
+  font-family: 'Roboto', sans-serif;
+}
+
+.formSubmit {
+  background-color: #121113;
+  border: none;
+  border-radius: 4px;
+  color: #F7F7F2;
+  display: inline-block;
+  margin-top: 5px;
+  text-decoration: none;
+  transition: background-color 0.4s ease;
+}
+
+.formSubmit:hover {
+  background-color: rgb(159, 163, 247);
+  transition: background-color 0.4s ease;
+}
+
+.formSubmit:link, .formSubmit:visited, .formSubmit:hover, .formSubmit:active {
+  background-color: rgb(159, 163, 247);
+  color: #F7F7F2;
+  transition: background-color 0.4s ease;
+}
+
+#logo {
+  border-radius: 8px;
+  float: right;
+  height: 40px;
+  margin-left: 10px;
+  padding-top: 12px;
+  width: 40;
+}
+
+nav {
+  background-color: #121113;
+  height: 65px;
+  width: 100%;
+}
+
+nav:nth-child(1) {
+  padding-left: 25px;
+}
+
+.navlink {
+  color: #121113;
+  float: left;
+  font-size: 1.3em;
+  margin: 0 auto;
+  padding-left: 20px;
+  padding-top: 18px;
+}
+
+.navlink a, .navlink a:link, .navlink a:visited, .navlink a:hover, .navlink a:active {
+  background-color: #121113;
+  color: #F7F7F2;
+  text-decoration: none;
+  transition: background-color 0.4s ease;
+}
+
+.navlink a:hover {
+  color: #EA638C;
+  transition: color 0.4s ease;
+}
+
+#loginCSS, #logoutCSS, #signupCSS, #logo {
+  float: right;
+  margin-right: 10px;
+}
+
+.gamerForm {
+  background-color: #EA638C;
+  border: 0px solid #121113;
+  border-radius: 4px;
+  height: 185px;
+  margin: 15px 15px auto;
+  padding: 25px;
+  padding-bottom: 40px;
+}
+
+.gamerForm input[type=text] {
+  font-family: 'Open Sans', sans-serif;
+  margin-bottom: 5px;
+  margin-top: 5px;
+}
+
+.searchForm {
+  background-color: #EA638C;
+  border: 0px solid #121113;
+  border-radius: 4px;
+  height: 50px;
+  margin: 15px 15px auto;
+  padding: 25px;
+}
+
+.searchGamerSubmit {
+  background-color: #121113;
+  border: none;
+  border-radius: 4px;
+  color: #F7F7F2;
+  float: right;
+  font-family: 'Open Sans', sans-serif;
+  height: 40px;
+  width: 100px;
+}
+
+.searchGamerSubmit:hover {
+  background-color: #333333;
+  transition: background-color 0.4s ease;
+}
+
+.searchGamerSubmit:link, .searchGamerSubmit:visited, .searchGamerSubmit:hover, .searchGamerSubmit:active {
+  background-color: #333333;
+  transition: background-color 0.4s ease;
+}
+
+#gamerName {
+  border: none;
+  border-radius: 4px;
+  float: left;
+  min-height: 40px;
+  text-align: center;
+  width: 60%;
+}
+
+#gamerRecommend {
+  border: none;
+  border-radius: 4px;
+  display: inline;
+  float: right;
+  font-family: 'Open Sans', sans-serif;
+  height: 40px;
+  margin-top: 5px;
+  width: 100px;
+}
+
+#gamerReview {
+  border: none;
+  border-radius: 4px;
+  display: inline;
+  float: left;
+  font-family: 'Open Sans', sans-serif;
+  margin: 10px 0;
+  width: 100%;
+}
+
+input {
+  font-family: 'Open Sans', sans-serif;
+}
+
+#loginPageHeader {
+  margin-top: 160px;
+}
+
+.makeGamerSubmit {
+  background-color: #121113;
+  border: none;
+  border-radius: 4px;
+  color: #F7F7F2;
+  display: inline-block;
+  float: left;
+  height: 40px;
+  margin-top: 5px;
+  text-decoration: none;
+  transition: background-color 0.4s ease;
+  width: 120px;
+}
+
+.makeGamerSubmit:hover {
+  background-color: #333333;
+  transition: background-color 0.4s ease;
+}
+
+.makeGamerSubmit:link, .makeGamerSubmit:visited, .makeGamerSubmit:hover, .makeGamerSubmit:active {
+  background-color: #333333;
+  color: #F7F7F2;
+  transition: background-color 0.4s ease;
+}
+
+.mainForm {
+  color: #121113;
+  font-size: 1.2em;
+  font-weight: bold;
+  height: 300px;
+  margin: 0 auto;
+  margin-top: 80px;
+  width: 350px;
+}
+
+.mainForm h3 {
+  text-align: center;
+}
+
+.mainForm label {
+  display: inline-block;
+  float: left;
+  font-size: 1.2em;
+  height: 40px;
+  margin-right: 10px;
+  text-align: right;
+  width: 100px;
+}
+
+.mainForm input {
+  height: 40px;
+}
+
+.formSubmit {
+  background-color: #121113;
+  color: #F7F7F2;
+  display: block;
+  font-size: 1.2em;
+  height: 40px;
+  margin: 0 auto;
+  margin-top: 25px;
+  text-align: center;
+  text-decoration: none;
+  transition: background-color 0.4s ease;
+  width: 100px;
+}
+
+.formSubmit:link, .formSubmit:visited, .formSubmit:hover, .formSubmit:active {
+  color: #F7F7F2;
+}
+
+.formSubmit:hover {
+  background-color: #333333;
+  transition: background-color 0.4s ease;
+}
+
+#user, #pass, #pass2 {
+  border: none;
+  border-radius: 4px;
+  margin-bottom: 5px;
+  text-align: center;
+  width: 180px;
+}
+
+#user:focus, #pass:focus, #pass2:focus {
+  box-shadow: 0px 0px 1px 1px #333333;
+  outline: none;
+}
+
+#gamerMessage {
+  display: none;
+  height: 650px;
+  overflow: hidden;
+  position: absolute;
+  right: 0px;
+  top: 250px;
+  width: 250px;
+  z-index: 200;
+}
+
+#gamerMessage h3 {
+  left: 20px;
+  margin-top: 40px;
+  position: absolute;
+  top: 0px;
+  width: 200px;
+}
+
+#speech {
+  height: 200px;
+  width: 240px;
+  z-index: 300;
+}
+
+#errorMessage {
+  color: #EA638C;
+  font-size: 1.2em;
+  font-style: italic;
+  font-weight: bold;
+}
+
+#gamer {
+  height: 450px;
+  margin-left: 80px;
+  margin-top: -80px;
+  ms-transform: rotate(330deg);
+  transform: rotate(330deg);
+  webkit-transform: rotate(330deg);
+  width: 400px;
+  z-index: 225;
+}
+
+.gamer {
+  background-color: #121113;
+  border: 2px solid #121113;
+  border-radius: 4px;
+  margin-bottom: 10px;
+  margin-top: 10px;
+  min-height: 60px;
+  overflow: hidden;
+  padding: 25px;
+}
+
+img.gamerFace {
+  border: 1px solid #F7F7F2;
+  border-radius: 4px;
+  float: left;
+  height: 50px;
+  margin-right: 10px;
+  margin-top: 10px;
+  width: 50px;
+}
+
+h3.emptyGamer {
+  font-size: 1.5em;
+  margin: 0 auto;
+  margin-top: 18px;
+  text-align: center;
+  width: 400px;
+}
+
+h3.gamerName {
+  color: #F7F7F2;
+  display: inline;
+  float: left;
+  font-size: 1.5em;
+  font-weight: bold;
+  padding-left: 15px;
+  text-align: left;
+}
+
+h3.gamerRecommend {
+  color: #F7F7F2;
+  display: inline;
+  float: right;
+  font-weight: lighter;
+  padding-right: 15px;
+  text-align: left;
+}
+
+h3.gamerReview {
+  color: #F7F7F2;
+  display: block;
+  float: left;
+  font-weight: lighter;
+  margin-left: 25px;
+  margin-right: 25px;
+  margin-top: 10px;
+  text-align: left;
+  width: 100%;
+}
+
+.header1 {
+  color: #F7F7F2;
+  font-size: 3em;
+  margin-bottom: 0em;
+  margin-top: .5em;
+  text-align: center;
+}
+
+.header2 {
+  color: #F7F7F2;
+  font-size: 2em;
+  margin-top: 0em;
+  padding: 0em;
+  text-align: center;
+}
+
+#makeGamer {
+  display: block;
+  margin: 15px 10px 0 0;
+  width: 100%;
+}
+
+#middlescreen {
+  background-color: rgb(221, 221, 221);
+  border: 1px solid #333333;
+  border-radius: 4px;
+  margin: 60px auto;
+  max-width: 800px;
+  text-align: center;
+}
+
+#middlescreen h2 {
+  color: #121113;
+}
+
+#gamers {
+  display: block;
+  margin: 15px;
+}
+
+.gamerList {
+  height: 100px;
+  margin: 0 auto;
+  padding: 15px;
+}
+
+a.active {
+  color: #EA638C !important;
+}
+
+#pass, #pass2 {
+  border: none;
+  margin-top: 5px;
+}
