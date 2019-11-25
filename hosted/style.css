@@ -244,7 +244,7 @@ input {
   transition: background-color 0.4s ease;
 }
 
-#user, #pass, #pass2 {
+#user, #pass, #pass2, #creditcardboxes {
   border: none;
   border-radius: 4px;
   margin-bottom: 5px;
@@ -410,7 +410,31 @@ a.active {
   color: #EA638C !important;
 }
 
-#pass, #pass2 {
+#pass, #pass2{
+  margin-top: 5px;
+  float: right;
   border: none;
+  margin-right: 2em;
   margin-top: 5px;
 }
+
+#creditcard{
+  display: flex;
+  flex-direction: column;
+  margin-left: 2em;
+  margin-top: 5px;
+}
+
+#submitCard{
+  display: inline-block;
+  width: 130px;
+  height: 30px;
+  background-color: #6D72C3;
+  border-radius: 4px;
+  color: #F7F7F2;
+  text-decoration: none;
+  margin-top: 5px;
+  float: right;
+  border: none;
+  margin-right: 2em;
+} 

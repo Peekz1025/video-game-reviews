@@ -2,7 +2,9 @@ const models = require('../models');
 const Account = models.Account;
 
 const loginPage = (req, res) => {
-  res.render('login', { csrfToken: req.csrfToken() });
+  res.render('login', {
+    csrfToken: req.csrfToken()
+  });
 };
 
 const logout = (req, res) => {
@@ -111,26 +113,22 @@ const changePass = (request, response) => {
   }
 
   return Account.AccountModel.generateHash(req.body.pass, (salt, hash) => {
-    const accountData = {
-      username: req.session.account.username,
+    return Account.AccountModel.updateOne({
+      username: req.session.account.username
+    }, {
       salt,
-      password: hash,
-    };
+      password: hash
+    }, (err) => {
+      if (err) {
+        console.log(err);
 
-    req.session.account = Account.AccountModel.toAPI(new Account.AccountModel(accountData));
-    const savePromise = req.session.account.save();
+        return res.status(400).json({
+          error: 'An error occurred.',
+        });
+      }
 
-    savePromise.then(() => {
       res.json({
         redirect: '/account',
-      });
-    });
-
-    savePromise.catch((err) => {
-      console.log(err);
-
-      return res.status(400).json({
-        error: 'An error occurred.',
       });
     });
   });
