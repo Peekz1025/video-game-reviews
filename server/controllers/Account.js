@@ -3,7 +3,7 @@ const Account = models.Account;
 
 const loginPage = (req, res) => {
   res.render('login', {
-    csrfToken: req.csrfToken()
+    csrfToken: req.csrfToken(),
   });
 };
 
@@ -112,26 +112,33 @@ const changePass = (request, response) => {
     });
   }
 
-  return Account.AccountModel.generateHash(req.body.pass, (salt, hash) => {
-    return Account.AccountModel.updateOne({
-      username: req.session.account.username
-    }, {
-      salt,
-      password: hash
-    }, (err) => {
-      if (err) {
-        console.log(err);
+  return Account.AccountModel.generateHash(req.body.pass, (salt, hash) =>
+    Account.AccountModel.updateOne({
+      username: req.session.account.username,
+    },
 
-        return res.status(400).json({
-          error: 'An error occurred.',
+      {
+        salt,
+        password: hash,
+      },
+
+      (err) => {
+        if (err) {
+          console.log(err);
+
+          return res.status(400).json({
+            error: 'An error occurred.',
+          });
+        }
+
+        res.json({
+          redirect: '/account',
         });
-      }
 
-      res.json({
-        redirect: '/account',
-      });
-    });
-  });
+        return res.status(200).json();
+      }
+    )
+  );
 };
 
 const getToken = (request, response) => {

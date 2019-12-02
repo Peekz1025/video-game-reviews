@@ -25,28 +25,29 @@
     <a href="/login"><img id="logo" src="/assets/img/face.png" alt="face logo" /></a>
   </nav>
 
-  <div id="creditcard">
-    <input id="creditcardboxes" type="text" placeholder="Credit Card Name" disabled></input>
-    <input id="creditcardboxes" type="text" placeholder="Credit Card Number" disabled></input>
-    <input id="creditcardboxes" type="text" placeholder="CVV" disabled></input>
-    <input id="creditcardboxes" type="text" placeholder="Exp Date" disabled></input>
-    <button id="submitCard" disabled>Submit</button>
-  </div>
-
-  <div>
-    <input class="passChange" type="submit" onclick="window.location.href='/change'" value="Change Password" />
-    <input type="hidden" name="_csrf" value={props.csrf} />
-    <input class="passChange" type="submit" onclick="Gamer/changePassword" value="Change Password" />
-
-    <label htmlFor="pass2"></label>
-    <input id="pass2" type="password" name="pass2" placeholder="retype password" />
-
-    <label htmlFor="pass"></label>
-    <input id="pass" type="password" name="pass" placeholder="password" />
-
-  </div>
-
   <div id="middlescreen">
+    <div id="creditcardContainer">
+      <div id="creditcard">
+        <input id="creditcardboxes" type="text" placeholder="Credit Card Name" disabled></input>
+        <input id="creditcardboxes" type="text" placeholder="Credit Card Number" disabled></input>
+        <input id="creditcardboxes" type="text" placeholder="CVV" disabled></input>
+        <input id="creditcardboxes" type="text" placeholder="Exp Date" disabled></input>
+        <button id="submitCard" disabled>Submit</button>
+        <input type="hidden" name="_csrf" value={props.csrf} />
+      </div>
+    </div>
+
+    <div id="passChangeContainer">
+      <div id="passChange">
+        <label htmlFor="pass"></label>
+        <input id="pass" type="password" name="pass" placeholder="password" />
+        <label htmlFor="pass2"></label>
+        <input id="pass2" type="password" name="pass2" placeholder="retype password" />
+        <button id="submitPass" type="submit" onclick="window.location.href='/change'">Change Password</button>
+        <input type="hidden" name="_csrf" value={props.csrf} />
+      </div>
+    </div>
+
     <h2>Write a Review</h2>
     <section id="makeGamer"></section>
     <section id="gamers"></section>

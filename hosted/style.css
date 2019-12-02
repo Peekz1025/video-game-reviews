@@ -266,6 +266,7 @@ input {
   top: 250px;
   width: 250px;
   z-index: 200;
+  color: #333333;
 }
 
 #gamerMessage h3 {
@@ -274,6 +275,7 @@ input {
   position: absolute;
   top: 0px;
   width: 200px;
+  color: #333333;
 }
 
 #speech {
@@ -327,6 +329,7 @@ h3.emptyGamer {
   margin-top: 18px;
   text-align: center;
   width: 400px;
+  color: #333333;
 }
 
 h3.gamerName {
@@ -410,22 +413,21 @@ a.active {
   color: #EA638C !important;
 }
 
-#pass, #pass2{
-  margin-top: 5px;
-  float: right;
-  border: none;
-  margin-right: 2em;
-  margin-top: 5px;
+#passChangeContainer, #creditcardContainer {
+  display: inline-block;
 }
 
-#creditcard{
+#creditcard, #passChange {
   display: flex;
   flex-direction: column;
-  margin-left: 2em;
-  margin-top: 5px;
+  background-color: #EA638C;
+  border: 0px solid #121113;
+  border-radius: 4px;
+  margin: 15px 15px auto;
+  padding: 25px;
 }
 
-#submitCard{
+#submitCard, #submitPass {
   display: inline-block;
   width: 130px;
   height: 30px;
@@ -434,7 +436,6 @@ a.active {
   color: #F7F7F2;
   text-decoration: none;
   margin-top: 5px;
-  float: right;
   border: none;
   margin-right: 2em;
-} 
+}
