@@ -77,6 +77,55 @@ var GamerForm = function GamerForm(props) {
   );
 };
 
+var PassChangeForm = function PassChangeForm(props) {
+  return React.createElement(
+    "div",
+    null,
+    React.createElement(
+      "form",
+      { id: "changePassForm",
+        name: "changePassForm",
+        onSubmit: passChange,
+        action: "/changePass",
+        method: "POST",
+        className: "changePassForm"
+      },
+      React.createElement(
+        "div",
+        { className: "input-item" },
+        React.createElement("input", { id: "currentPass", type: "password", name: "currentPass", placeholder: "Current password" }),
+        React.createElement(
+          "label",
+          { className: "input-label", htmlFor: "currentPass" },
+          "Current Password: "
+        )
+      ),
+      React.createElement(
+        "div",
+        { className: "input-item" },
+        React.createElement("input", { id: "pass", type: "password", name: "pass", placeholder: "New password" }),
+        React.createElement(
+          "label",
+          { className: "input-label", htmlFor: "pass" },
+          "New Password: "
+        )
+      ),
+      React.createElement(
+        "div",
+        { className: "input-item" },
+        React.createElement("input", { id: "pass2", type: "password", name: "pass2", placeholder: "Retype password" }),
+        React.createElement(
+          "label",
+          { className: "input-label", htmlFor: "pass2" },
+          "Retype New Password: "
+        )
+      ),
+      React.createElement("input", { type: "hidden", name: "_csrf", value: props.csrf }),
+      React.createElement("input", { className: "formSubmit", type: "submit", value: "Change Password" })
+    )
+  );
+};
+
 var SearchForm = function SearchForm(props) {
   return React.createElement(
     "div",
@@ -170,6 +219,7 @@ var setup = function setup(csrf) {
   URL = URL.substr(URL.length - 4);
 
   if (URL == "ount") {
+    ReactDOM.render(React.createElement(PassChangeForm, { csrf: csrf }), document.querySelector("#passChangeSection"));
     ReactDOM.render(React.createElement(GamerForm, { csrf: csrf }), document.querySelector("#makeGamer"));
     loadGamersFromServer();
   }
@@ -195,6 +245,29 @@ var CheckGamer = function CheckGamer(props) {
   if (props.gamers.length === 0) {
     return true;
   }
+  return false;
+};
+
+var passChange = function passChange(e) {
+  e.preventDefault();
+
+  if ($("#pass").val() == '' || $("#pass2").val() == '' || $("#currentPass").val() == '') {
+    handleError("All fields required");
+    return false;
+  }
+
+  if ($("#pass").val() !== $("#pass2").val()) {
+    handleError("The new passwords don't match");
+    return false;
+  }
+
+  sendAjax('POST', $("#changePassForm").attr("action"), $("#changePassForm").serialize(), function (result) {
+    handleError(result.message);
+  }, function (xhr, status, error) {
+    var messageObj = JSON.parse(xhr.responseText);
+    handleError(messageObj.error);
+  });
+
   return false;
 };
 
