@@ -123,12 +123,22 @@ const getRecentGamers = (request, response) => {
   });
 };
 
+const deleteReview = (request, response) => {
+  const req = request;
+  const res = response;
+  
+  console.log(`hi`);
+  
+  //have to pass in review some how
+  
+  
+};
+
 module.exports.homePage = homePage;
 module.exports.accountPage = accountPage;
 module.exports.searchPage = searchPage;
-
 module.exports.getGamers = getGamers;
 module.exports.getRecentGamers = getRecentGamers;
 module.exports.make = makeGamer;
-
 module.exports.getReviews = getReviews;
+module.exports.deleteReview = deleteReview;

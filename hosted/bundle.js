@@ -184,6 +184,11 @@ var GamerList = function GamerList(props) {
         " ",
         gamer.review,
         " "
+      ),
+      React.createElement(
+        "button",
+        { onclick: "/deleteReview" },
+        "Delete"
       )
     );
   });

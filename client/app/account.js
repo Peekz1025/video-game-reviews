@@ -128,6 +128,7 @@ const GamerList = function (props) {
         <h3 className="gamerName"> {gamer.name} </h3>
         <h3 className="gamerRecommend"> Recommended: {gamer.recommend} </h3>
         <h3 className="gamerReview"> {gamer.review} </h3>
+        <button onclick="/deleteReview">Delete</button>
       </div>
     );
   });
@@ -206,10 +207,6 @@ const CheckGamer = function (props) {
   return false;
 };
 
-
-
-
-
 const passChange = (e) =>{
     e.preventDefault();
     
@@ -234,13 +231,6 @@ const passChange = (e) =>{
     
     return false;
 };
-
-
-
-
-
-
-
 
 $(document).ready(function () {
   getToken();
