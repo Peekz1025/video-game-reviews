@@ -37,6 +37,23 @@ var handleSearch = function handleSearch(e) {
   return false;
 };
 
+var handleUserSearch = function handleUserSearch(e) {
+  e.preventDefault();
+
+  $("#gamerMessage").animate({ width: 'hide' }, 350);
+
+  if ($("#gamerName").val() == '') {
+    handleError("Please enter a username to search.");
+    return false;
+  }
+
+  sendAjax('POST', $("#searchUserForm").attr("action"), $("#searchUserForm").serialize(), function () {
+    loadGamersFromServer();
+  });
+
+  return false;
+};
+
 var GamerForm = function GamerForm(props) {
   return React.createElement(
     "div",
@@ -97,6 +114,26 @@ var SearchForm = function SearchForm(props) {
   );
 };
 
+var SearchUserForm = function SearchUserForm(props) {
+  return React.createElement(
+    "div",
+    null,
+    React.createElement(
+      "form",
+      { id: "searchUserForm",
+        name: "searchUserForm",
+        onSubmit: handleUserSearch,
+        action: "/getReviews",
+        method: "POST",
+        className: "searchUserForm"
+      },
+      React.createElement("input", { id: "gamerName", type: "text", name: "name", placeholder: "Username" }),
+      React.createElement("input", { type: "hidden", name: "_csrf", value: props.csrf }),
+      React.createElement("input", { className: "searchGamerSubmit", type: "submit", value: "Search" })
+    )
+  );
+};
+
 var GamerList = function GamerList(props) {
   if (props.gamers.length === 0) {
     return React.createElement(
@@ -150,14 +187,17 @@ var loadGamersFromServer = function loadGamersFromServer() {
   var URL = window.location.href;
   URL = URL.substr(URL.length - 4);
 
+  // Home page
   if (URL == "home") {
     sendAjax('GET', '/getRecentGamers', null, function (data) {
       ReactDOM.render(React.createElement(GamerList, { gamers: data.gamers }), document.querySelector("#gamers"));
     });
+    // Account page
   } else if (URL == "ount") {
     sendAjax('GET', '/getGamers', null, function (data) {
       ReactDOM.render(React.createElement(GamerList, { gamers: data.gamers }), document.querySelector("#gamers"));
     });
+    // Search page
   } else if (URL == "arch") {
     sendAjax('GET', '/getReviews', null, function (data) {
       ReactDOM.render(React.createElement(GamerList, { gamers: data.gamers }), document.querySelector("#gamers"));
@@ -169,16 +209,19 @@ var setup = function setup(csrf) {
   var URL = window.location.href;
   URL = URL.substr(URL.length - 4);
 
+  // Account page
   if (URL == "ount") {
     ReactDOM.render(React.createElement(GamerForm, { csrf: csrf }), document.querySelector("#makeGamer"));
     loadGamersFromServer();
   }
 
+  // Search page
   if (URL == "arch") {
     ReactDOM.render(React.createElement(SearchForm, { csrf: csrf }), document.querySelector("#searchGamer"));
     loadGamersFromServer();
   }
 
+  // If account, home or search page
   if (URL == "ount" || URL == "home" || URL == "arch") {
     ReactDOM.render(React.createElement(GamerList, { gamers: [] }), document.querySelector("#gamers"));
     loadGamersFromServer();

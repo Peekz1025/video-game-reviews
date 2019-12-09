@@ -36,6 +36,23 @@ const handleSearch = (e) => {
   return false;
 };
 
+const handleUserSearch = (e) => {
+  e.preventDefault();
+
+  $("#gamerMessage").animate({ width: 'hide' }, 350);
+
+  if ($("#gamerName").val() == '') {
+    handleError("Please enter a username to search.");
+    return false;
+  }
+
+  sendAjax('POST', $("#searchUserForm").attr("action"), $("#searchUserForm").serialize(), function () {
+    loadGamersFromServer();
+  });
+
+  return false;
+};
+
 const GamerForm = (props) => {
   return (
     <div>
@@ -54,7 +71,7 @@ const GamerForm = (props) => {
           <option value="no">No</option>
         </select>
 
-        <textarea id="gamerReview" type="text" name="review" rows="5" cols="50"  placeholder="Review..." />
+        <textarea id="gamerReview" type="text" name="review" rows="5" cols="50" placeholder="Review..." />
         <input type="hidden" name="_csrf" value={props.csrf} />
         <input className="makeGamerSubmit" type="submit" value="Post Review" />
       </form>
@@ -73,6 +90,24 @@ const SearchForm = (props) => {
         className="searchForm"
       >
         <input id="gamerName" type="text" name="name" placeholder="Game Title" />
+        <input type="hidden" name="_csrf" value={props.csrf} />
+        <input className="searchGamerSubmit" type="submit" value="Search" />
+      </form>
+    </div>
+  );
+};
+
+const SearchUserForm = (props) => {
+  return (
+    <div>
+      <form id="searchUserForm"
+        name="searchUserForm"
+        onSubmit={handleUserSearch}
+        action="/getReviews"
+        method="POST"
+        className="searchUserForm"
+      >
+        <input id="gamerName" type="text" name="name" placeholder="Username" />
         <input type="hidden" name="_csrf" value={props.csrf} />
         <input className="searchGamerSubmit" type="submit" value="Search" />
       </form>
@@ -111,18 +146,21 @@ const loadGamersFromServer = () => {
   let URL = window.location.href;
   URL = URL.substr(URL.length - 4);
 
+  // Home page
   if (URL == "home") {
     sendAjax('GET', '/getRecentGamers', null, (data) => {
       ReactDOM.render(
         <GamerList gamers={data.gamers} />, document.querySelector("#gamers")
       );
     });
+    // Account page
   } else if (URL == "ount") {
     sendAjax('GET', '/getGamers', null, (data) => {
       ReactDOM.render(
         <GamerList gamers={data.gamers} />, document.querySelector("#gamers")
       );
     });
+    // Search page
   } else if (URL == "arch") {
     sendAjax('GET', '/getReviews', null, (data) => {
       ReactDOM.render(
@@ -136,6 +174,7 @@ const setup = function (csrf) {
   let URL = window.location.href;
   URL = URL.substr(URL.length - 4);
 
+  // Account page
   if (URL == "ount") {
     ReactDOM.render(
       <GamerForm csrf={csrf} />, document.querySelector("#makeGamer")
@@ -143,6 +182,7 @@ const setup = function (csrf) {
     loadGamersFromServer();
   }
 
+  // Search page
   if (URL == "arch") {
     ReactDOM.render(
       <SearchForm csrf={csrf} />, document.querySelector("#searchGamer")
@@ -150,6 +190,7 @@ const setup = function (csrf) {
     loadGamersFromServer();
   }
 
+  // If account, home or search page
   if (URL == "ount" || URL == "home" || URL == "arch") {
     ReactDOM.render(
       <GamerList gamers={[]} />, document.querySelector("#gamers")

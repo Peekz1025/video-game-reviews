@@ -12,6 +12,7 @@ const router = (app) => {
   app.get('/logout', mid.requireLogin, controllers.Account.logout);
 
   app.get('/account', mid.requireLogin, controllers.Gamer.accountPage);
+  
   app.post('/changePass', mid.requireLogin, controllers.Account.changePass);
 
   app.get('/home', mid.requireLogin, controllers.Gamer.homePage);
@@ -20,6 +21,10 @@ const router = (app) => {
   app.get('/getReviews', mid.requireLogin, controllers.Gamer.getReviews);
   app.post('/getReviews', mid.requireLogin, controllers.Gamer.getReviews);
   app.get('/search', mid.requireLogin, controllers.Gamer.searchPage);
+
+  app.get('/users', mid.requireLogin, controllers.Gamer.usersPage);
+  app.get('/getUsers', mid.requireLogin, controllers.Gamer.getUsers);
+  app.post('/getUsers', mid.requireLogin, controllers.Gamer.getUsers);
 
   app.get('/', mid.requireSecure, mid.requireLogout, controllers.Account.loginPage);
 };
