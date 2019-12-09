@@ -38,18 +38,6 @@ const searchPage = (req, res) => {
   });
 };
 
-const usersPage = (req, res) => {
-  Gamer.GamerModel.findByOwner(req.session.account._id, (err, docs) => {
-    if (err) {
-      console.log(err);
-      return res.status(400).json({
-        error: 'An error occured!',
-      });
-    }
-    return res.render('users', { csrfToken: req.csrfToken(), gamers: docs });
-  });
-};
-
 const makeGamer = (req, res) => {
   if (!req.body.name || !req.body.recommend || !req.body.review) {
     return res.status(400).json({
@@ -111,7 +99,7 @@ const getGamers = (request, response) => {
   const req = request;
   const res = response;
 
-  return Gamer.GamerModel.findByOwner(req.session.account.username, (err, docs) => {
+  return Gamer.GamerModel.findByOwner(req.session.account._id, (err, docs) => {
     if (err) {
       console.log(err);
       return res.status(400).json({ error: 'An error occurred' });
@@ -135,13 +123,22 @@ const getRecentGamers = (request, response) => {
   });
 };
 
+const deleteReview = (request, response) => {
+  const req = request;
+  const res = response;
+  
+  console.log(`hi`);
+  
+  //have to pass in review some how
+  
+  
+};
+
 module.exports.homePage = homePage;
 module.exports.accountPage = accountPage;
 module.exports.searchPage = searchPage;
-module.exports.usersPage = usersPage;
-
 module.exports.getGamers = getGamers;
 module.exports.getRecentGamers = getRecentGamers;
 module.exports.make = makeGamer;
-
 module.exports.getReviews = getReviews;
+module.exports.deleteReview = deleteReview;

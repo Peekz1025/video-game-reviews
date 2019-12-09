@@ -79,6 +79,38 @@ const GamerForm = (props) => {
   );
 };
 
+const PassChangeForm = (props) => {
+  return (
+    <div>
+      <form id="changePassForm"
+        name="changePassForm"
+        onSubmit={passChange}
+        action="/changePass"
+        method="POST"
+        className="changePassForm"
+      >
+            <div className="input-item">
+                <input id="currentPass" type="password" name ="currentPass" placeholder="Current password"/>
+                <label className="input-label" htmlFor="currentPass">Current Password: </label>
+            </div>
+
+            <div className="input-item">
+                <input id="pass" type="password" name ="pass" placeholder="New password"/>
+                <label className="input-label" htmlFor="pass">New Password: </label>
+            </div>
+
+            <div className="input-item">
+                <input id="pass2" type="password" name ="pass2" placeholder="Retype password"/>
+                <label className="input-label" htmlFor="pass2">Retype New Password: </label>
+            </div>
+
+            <input type="hidden" name="_csrf" value={props.csrf} />
+            <input className="formSubmit" type="submit" value="Change Password"/>
+          </form>
+    </div>
+    );
+};
+
 const SearchForm = (props) => {
   return (
     <div>
@@ -131,6 +163,7 @@ const GamerList = function (props) {
         <h3 className="gamerName"> {gamer.name} </h3>
         <h3 className="gamerRecommend"> Recommended: {gamer.recommend} </h3>
         <h3 className="gamerReview"> {gamer.review} </h3>
+        <button onclick="/deleteReview">Delete</button>
       </div>
     );
   });
@@ -177,6 +210,9 @@ const setup = function (csrf) {
   // Account page
   if (URL == "ount") {
     ReactDOM.render(
+      <PassChangeForm csrf={csrf} />, document.querySelector("#passChangeSection")
+    );
+    ReactDOM.render(
       <GamerForm csrf={csrf} />, document.querySelector("#makeGamer")
     );
     loadGamersFromServer();
@@ -210,6 +246,31 @@ const CheckGamer = function (props) {
     return true;
   }
   return false;
+};
+
+const passChange = (e) =>{
+    e.preventDefault();
+    
+    if( $("#pass").val() == '' || $("#pass2").val() == '' || $("#currentPass").val() == '') {
+        handleError("All fields required");
+        return false;
+    }
+
+    if($("#pass").val() !== $("#pass2").val()) {
+        handleError("The new passwords don't match");
+        return false;
+    }
+    
+    sendAjax('POST', $("#changePassForm").attr("action"), $("#changePassForm").serialize(),
+    (result)=>{
+        handleError(result.message);
+    }, 
+    (xhr, status, error) =>{
+        var messageObj = JSON.parse(xhr.responseText);
+        handleError(messageObj.error);
+    });
+    
+    return false;
 };
 
 $(document).ready(function () {
