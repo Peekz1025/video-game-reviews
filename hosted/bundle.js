@@ -1,5 +1,8 @@
 "use strict";
 
+var number = 0;
+var csurfToken = void 0;
+
 var handleGamer = function handleGamer(e) {
   e.preventDefault();
 
@@ -48,6 +51,19 @@ var handleUserSearch = function handleUserSearch(e) {
   }
 
   sendAjax('POST', $("#searchUserForm").attr("action"), $("#searchUserForm").serialize(), function () {
+    loadGamersFromServer();
+  });
+
+  return false;
+};
+
+var handleDelete = function handleDelete(e) {
+  e.preventDefault();
+
+  $("#gamerMessage").animate({ width: 'hide' }, 350);
+
+  sendAjax('POST', $("#" + e.target.id).attr("action"), $("#" + e.target.id).serialize(), function () {
+    console.log("hi!");
     loadGamersFromServer();
   });
 
@@ -196,7 +212,10 @@ var GamerList = function GamerList(props) {
     );
   }
 
+  var number = 0;
+
   var gamerNodes = props.gamers.map(function (gamer) {
+    number += 1;
     return React.createElement(
       "div",
       { key: gamer._id, className: "gamer" },
@@ -223,9 +242,15 @@ var GamerList = function GamerList(props) {
         " "
       ),
       React.createElement(
-        "button",
-        { onclick: "/deleteReview" },
-        "Delete"
+        "form",
+        { id: "delForm" + number, onSubmit: handleDelete, name: "delForm", action: "/deleteReview", method: "POST" },
+        React.createElement("input", { type: "hidden", name: "_csrf", value: csurfToken }),
+        React.createElement("input", { name: "gamerid", type: "hidden", value: gamer._id }),
+        React.createElement(
+          "button",
+          { type: "submit", title: "Delete Review" },
+          "poopoopeepee"
+        )
       )
     );
   });
@@ -285,6 +310,7 @@ var setup = function setup(csrf) {
 
 var getToken = function getToken() {
   sendAjax('GET', '/getToken', null, function (result) {
+    csurfToken = result.csrfToken;
     setup(result.csrfToken);
   });
 };

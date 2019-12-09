@@ -140,10 +140,15 @@ const deleteReview = (request, response) => {
   const res = response;
   
   console.log(`hi`);
-  
-  //have to pass in review some how
-  
-  
+
+  //const deletePromise = app.mainDB.collection('replays').deleteOne({ id: req.body.gamerid });
+  return Gamer.GamerModel.deleteOne({ _id: req.body.gamerid }, (err2) => {
+    if(err2) {
+      return res.json({ err2 });
+    }
+     console.log("console statement"); 
+    return res.json({ message: 'Review deleted!' }); 
+  });
 };
 
 module.exports.homePage = homePage;

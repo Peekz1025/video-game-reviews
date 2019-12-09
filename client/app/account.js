@@ -1,3 +1,7 @@
+let number = 0;
+let csurfToken;
+
+
 const handleGamer = (e) => {
   e.preventDefault();
 
@@ -47,6 +51,19 @@ const handleUserSearch = (e) => {
   }
 
   sendAjax('POST', $("#searchUserForm").attr("action"), $("#searchUserForm").serialize(), function () {
+    loadGamersFromServer();
+  });
+
+  return false;
+};
+
+const handleDelete = (e) => {
+  e.preventDefault();
+
+  $("#gamerMessage").animate({ width: 'hide' }, 350);
+
+  sendAjax('POST', $("#" + e.target.id).attr("action"), $("#" + e.target.id).serialize(), function () {
+    console.log("hi!");
     loadGamersFromServer();
   });
 
@@ -155,15 +172,24 @@ const GamerList = function (props) {
       </div>
     );
   }
+  
+  let number = 0;
 
   const gamerNodes = props.gamers.map(function (gamer) {
+    number += 1;
     return (
       <div key={gamer._id} className="gamer">
         <img src="/assets/img/gamerface.jpeg" alt="gamer face" className="gamerFace" />
         <h3 className="gamerName"> {gamer.name} </h3>
         <h3 className="gamerRecommend"> Recommended: {gamer.recommend} </h3>
         <h3 className="gamerReview"> {gamer.review} </h3>
-        <button onclick="/deleteReview">Delete</button>
+        
+        <form id={"delForm" + number} onSubmit={handleDelete} name="delForm" action="/deleteReview" method="POST">
+          <input type="hidden" name="_csrf" value={csurfToken}/>
+          <input name="gamerid" type="hidden" value={gamer._id}/>
+          <button type="submit" title="Delete Review">poopoopeepee</button>
+        </form>
+        
       </div>
     );
   });
@@ -237,6 +263,7 @@ const setup = function (csrf) {
 
 const getToken = () => {
   sendAjax('GET', '/getToken', null, (result) => {
+    csurfToken = result.csrfToken;
     setup(result.csrfToken);
   });
 };
