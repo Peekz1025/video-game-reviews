@@ -5,16 +5,12 @@ html, body {
   background-image: url("/assets/img/BG.png");
   background-repeat: repeat-x;
   background-size: 300px 200px;
-  font-family: 'Open Sans', sans-serif;
+  font-family: 'Roboto', sans-serif;
   height: 100%;
   margin: 0;
   overflow-x: hidden;
   padding: 0;
   width: 100%;
-}
-
-h1, h2, h3 {
-  font-family: 'Roboto', sans-serif;
 }
 
 .formSubmit {
@@ -244,7 +240,7 @@ input {
   transition: background-color 0.4s ease;
 }
 
-#user, #pass, #pass2, #creditcardboxes {
+#user, #pass, #pass2, #currentPass, #creditcardboxes {
   border: none;
   border-radius: 4px;
   margin-bottom: 5px;
@@ -413,11 +409,11 @@ a.active {
   color: #EA638C !important;
 }
 
-#passChangeContainer, #creditcardContainer {
+#passChangeContainer, #boxContainer {
   display: inline-block;
 }
 
-#creditcard, #passChange {
+#box, #passChange {
   display: flex;
   flex-direction: column;
   background-color: #EA638C;
@@ -439,3 +435,10 @@ a.active {
   border: none;
   margin-right: 2em;
 }
+
+#updateAccountBox{
+  display: flex;
+  flex=flex-direction: row;
+  justify-content: center;
+}
+

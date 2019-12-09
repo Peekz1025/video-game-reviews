@@ -96,9 +96,9 @@ const GamerForm = (props) => {
   );
 };
 
-const PassChangeForm = (props) => {
+const UpdateAccountForm = (props) => {
   return (
-    <div>
+    <div id="updateAccountBox" >
       <form id="changePassForm"
         name="changePassForm"
         onSubmit={passChange}
@@ -106,26 +106,42 @@ const PassChangeForm = (props) => {
         method="POST"
         className="changePassForm"
       >
+        <div id="boxContainer">
+          <div id="box">
             <div className="input-item">
                 <input id="currentPass" type="password" name ="currentPass" placeholder="Current password"/>
-                <label className="input-label" htmlFor="currentPass">Current Password: </label>
+                <label className="input-label" htmlFor="currentPass"></label>
             </div>
 
             <div className="input-item">
                 <input id="pass" type="password" name ="pass" placeholder="New password"/>
-                <label className="input-label" htmlFor="pass">New Password: </label>
+                <label className="input-label" htmlFor="pass"></label>
             </div>
 
             <div className="input-item">
                 <input id="pass2" type="password" name ="pass2" placeholder="Retype password"/>
-                <label className="input-label" htmlFor="pass2">Retype New Password: </label>
+                <label className="input-label" htmlFor="pass2"></label>
             </div>
 
             <input type="hidden" name="_csrf" value={props.csrf} />
-            <input className="formSubmit" type="submit" value="Change Password"/>
+            <input id="submitCard" type="submit" value="Change Password"/>
+          </div>
+        </div>
           </form>
+      
+      <div id="boxContainer">
+        <div id="box">
+          <input id="creditcardboxes" type="text" placeholder="Credit Card Name" disabled></input>
+          <input id="creditcardboxes" type="text" placeholder="Credit Card Number" disabled></input>
+          <input id="creditcardboxes" type="text" placeholder="CVV" disabled></input>
+          <input id="creditcardboxes" type="text" placeholder="Exp Date" disabled></input>
+          <button id="submitCard" disabled>Submit</button>
+          <input type="hidden" name="_csrf" value={props.csrf} />
+        </div>
+      </div>
+      
     </div>
-    );
+  );
 };
 
 const SearchForm = (props) => {
@@ -187,7 +203,7 @@ const GamerList = function (props) {
         <form id={"delForm" + number} onSubmit={handleDelete} name="delForm" action="/deleteReview" method="POST">
           <input type="hidden" name="_csrf" value={csurfToken}/>
           <input name="gamerid" type="hidden" value={gamer._id}/>
-          <button type="submit" title="Delete Review">poopoopeepee</button>
+          <button id="submitCard" type="submit" title="Delete Review">Delete Review</button>
         </form>
         
       </div>
@@ -236,10 +252,10 @@ const setup = function (csrf) {
   // Account page
   if (URL == "ount") {
     ReactDOM.render(
-      <PassChangeForm csrf={csrf} />, document.querySelector("#passChangeSection")
+      <GamerForm csrf={csrf} />, document.querySelector("#makeGamer")
     );
     ReactDOM.render(
-      <GamerForm csrf={csrf} />, document.querySelector("#makeGamer")
+      <UpdateAccountForm csrf={csrf} />, document.querySelector("#passChangeSection")
     );
     loadGamersFromServer();
   }

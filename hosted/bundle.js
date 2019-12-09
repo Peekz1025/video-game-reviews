@@ -110,10 +110,10 @@ var GamerForm = function GamerForm(props) {
   );
 };
 
-var PassChangeForm = function PassChangeForm(props) {
+var UpdateAccountForm = function UpdateAccountForm(props) {
   return React.createElement(
     "div",
-    null,
+    { id: "updateAccountBox" },
     React.createElement(
       "form",
       { id: "changePassForm",
@@ -125,36 +125,50 @@ var PassChangeForm = function PassChangeForm(props) {
       },
       React.createElement(
         "div",
-        { className: "input-item" },
-        React.createElement("input", { id: "currentPass", type: "password", name: "currentPass", placeholder: "Current password" }),
+        { id: "boxContainer" },
         React.createElement(
-          "label",
-          { className: "input-label", htmlFor: "currentPass" },
-          "Current Password: "
+          "div",
+          { id: "box" },
+          React.createElement(
+            "div",
+            { className: "input-item" },
+            React.createElement("input", { id: "currentPass", type: "password", name: "currentPass", placeholder: "Current password" }),
+            React.createElement("label", { className: "input-label", htmlFor: "currentPass" })
+          ),
+          React.createElement(
+            "div",
+            { className: "input-item" },
+            React.createElement("input", { id: "pass", type: "password", name: "pass", placeholder: "New password" }),
+            React.createElement("label", { className: "input-label", htmlFor: "pass" })
+          ),
+          React.createElement(
+            "div",
+            { className: "input-item" },
+            React.createElement("input", { id: "pass2", type: "password", name: "pass2", placeholder: "Retype password" }),
+            React.createElement("label", { className: "input-label", htmlFor: "pass2" })
+          ),
+          React.createElement("input", { type: "hidden", name: "_csrf", value: props.csrf }),
+          React.createElement("input", { id: "submitCard", type: "submit", value: "Change Password" })
         )
-      ),
+      )
+    ),
+    React.createElement(
+      "div",
+      { id: "boxContainer" },
       React.createElement(
         "div",
-        { className: "input-item" },
-        React.createElement("input", { id: "pass", type: "password", name: "pass", placeholder: "New password" }),
+        { id: "box" },
+        React.createElement("input", { id: "creditcardboxes", type: "text", placeholder: "Credit Card Name", disabled: true }),
+        React.createElement("input", { id: "creditcardboxes", type: "text", placeholder: "Credit Card Number", disabled: true }),
+        React.createElement("input", { id: "creditcardboxes", type: "text", placeholder: "CVV", disabled: true }),
+        React.createElement("input", { id: "creditcardboxes", type: "text", placeholder: "Exp Date", disabled: true }),
         React.createElement(
-          "label",
-          { className: "input-label", htmlFor: "pass" },
-          "New Password: "
-        )
-      ),
-      React.createElement(
-        "div",
-        { className: "input-item" },
-        React.createElement("input", { id: "pass2", type: "password", name: "pass2", placeholder: "Retype password" }),
-        React.createElement(
-          "label",
-          { className: "input-label", htmlFor: "pass2" },
-          "Retype New Password: "
-        )
-      ),
-      React.createElement("input", { type: "hidden", name: "_csrf", value: props.csrf }),
-      React.createElement("input", { className: "formSubmit", type: "submit", value: "Change Password" })
+          "button",
+          { id: "submitCard", disabled: true },
+          "Submit"
+        ),
+        React.createElement("input", { type: "hidden", name: "_csrf", value: props.csrf })
+      )
     )
   );
 };
@@ -248,8 +262,8 @@ var GamerList = function GamerList(props) {
         React.createElement("input", { name: "gamerid", type: "hidden", value: gamer._id }),
         React.createElement(
           "button",
-          { type: "submit", title: "Delete Review" },
-          "poopoopeepee"
+          { id: "submitCard", type: "submit", title: "Delete Review" },
+          "Delete Review"
         )
       )
     );
@@ -290,8 +304,8 @@ var setup = function setup(csrf) {
 
   // Account page
   if (URL == "ount") {
-    ReactDOM.render(React.createElement(PassChangeForm, { csrf: csrf }), document.querySelector("#passChangeSection"));
     ReactDOM.render(React.createElement(GamerForm, { csrf: csrf }), document.querySelector("#makeGamer"));
+    ReactDOM.render(React.createElement(UpdateAccountForm, { csrf: csrf }), document.querySelector("#passChangeSection"));
     loadGamersFromServer();
   }
 
