@@ -148,7 +148,8 @@ const changePass = (request, response) => {
 //  const req = request;
 //  const res = response;
 //  
-//  Account.AccountModel.authenticate(req.session.account.username, req.body.currentPass,
+//  Account.AccountModel.authenticate(req.session.account.username,
+//req.body.currentPass,
 //    (err, doc) => {
 //      if (err) {
 //        return res.json({ error: 'An error occured' });
