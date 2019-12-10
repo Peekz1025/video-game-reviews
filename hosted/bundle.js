@@ -63,7 +63,6 @@ var handleDelete = function handleDelete(e) {
   $("#gamerMessage").animate({ width: 'hide' }, 350);
 
   sendAjax('POST', $("#" + e.target.id).attr("action"), $("#" + e.target.id).serialize(), function () {
-    console.log("hi!");
     loadGamersFromServer();
   });
 
@@ -188,7 +187,7 @@ var SearchUserForm = function SearchUserForm(props) {
       { id: "searchUserForm",
         name: "searchUserForm",
         onSubmit: handleUserSearch,
-        action: "/getReviews",
+        action: "/getUsers",
         method: "POST",
         className: "searchUserForm"
       },
@@ -207,7 +206,7 @@ var GamerList = function GamerList(props) {
       React.createElement(
         "h3",
         { className: "emptyGamer" },
-        "No reviews posted"
+        "No reviews available"
       )
     );
   }
@@ -249,7 +248,7 @@ var GamerList = function GamerList(props) {
         React.createElement(
           "button",
           { type: "submit", title: "Delete Review" },
-          "poopoopeepee"
+          "Delete"
         )
       )
     );
@@ -281,6 +280,10 @@ var loadGamersFromServer = function loadGamersFromServer() {
     sendAjax('GET', '/getReviews', null, function (data) {
       ReactDOM.render(React.createElement(GamerList, { gamers: data.gamers }), document.querySelector("#gamers"));
     });
+  } else if (URL == "sers") {
+    sendAjax('GET', '/getUsers', null, function (data) {
+      ReactDOM.render(React.createElement(GamerList, { gamers: data.gamers }), document.querySelector("#gamers"));
+    });
   }
 };
 
@@ -301,8 +304,14 @@ var setup = function setup(csrf) {
     loadGamersFromServer();
   }
 
+  // User Search Page
+  if (URL == "sers") {
+    ReactDOM.render(React.createElement(SearchUserForm, { csrf: csrf }), document.querySelector("#searchGamer"));
+    loadGamersFromServer();
+  }
+
   // If account, home or search page
-  if (URL == "ount" || URL == "home" || URL == "arch") {
+  if (URL == "ount" || URL == "home" || URL == "arch" || URL == "sers") {
     ReactDOM.render(React.createElement(GamerList, { gamers: [] }), document.querySelector("#gamers"));
     loadGamersFromServer();
   }

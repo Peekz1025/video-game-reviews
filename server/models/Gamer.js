@@ -1,5 +1,7 @@
 const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
+const models = require('../models');
+const Account = models.Account;
 const _ = require('underscore');
 
 let GamerModel = {};
@@ -59,6 +61,20 @@ GamerSchema.statics.findRecent = (callback) => {
 GamerSchema.statics.findByName = (title, callback) => {
   const search = {
     name: title,
+  };
+
+  return GamerModel.find(search).select('name recommend review').exec(callback);
+};
+
+GamerSchema.statics.findByUser = (user, callback) => {
+  let rawAccount = Account.AccountModel.findByUsername(user);
+  let account = Account.AccountModel.toAPI(rawAccount);
+  let ownerId = account._id;
+
+  console.log(account.username);
+
+  const search = {
+    owner: convertId(ownerId),
   };
 
   return GamerModel.find(search).select('name recommend review').exec(callback);

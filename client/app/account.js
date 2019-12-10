@@ -63,7 +63,6 @@ const handleDelete = (e) => {
   $("#gamerMessage").animate({ width: 'hide' }, 350);
 
   sendAjax('POST', $("#" + e.target.id).attr("action"), $("#" + e.target.id).serialize(), function () {
-    console.log("hi!");
     loadGamersFromServer();
   });
 
@@ -106,26 +105,26 @@ const PassChangeForm = (props) => {
         method="POST"
         className="changePassForm"
       >
-            <div className="input-item">
-                <input id="currentPass" type="password" name ="currentPass" placeholder="Current password"/>
-                <label className="input-label" htmlFor="currentPass">Current Password: </label>
-            </div>
+        <div className="input-item">
+          <input id="currentPass" type="password" name="currentPass" placeholder="Current password" />
+          <label className="input-label" htmlFor="currentPass">Current Password: </label>
+        </div>
 
-            <div className="input-item">
-                <input id="pass" type="password" name ="pass" placeholder="New password"/>
-                <label className="input-label" htmlFor="pass">New Password: </label>
-            </div>
+        <div className="input-item">
+          <input id="pass" type="password" name="pass" placeholder="New password" />
+          <label className="input-label" htmlFor="pass">New Password: </label>
+        </div>
 
-            <div className="input-item">
-                <input id="pass2" type="password" name ="pass2" placeholder="Retype password"/>
-                <label className="input-label" htmlFor="pass2">Retype New Password: </label>
-            </div>
+        <div className="input-item">
+          <input id="pass2" type="password" name="pass2" placeholder="Retype password" />
+          <label className="input-label" htmlFor="pass2">Retype New Password: </label>
+        </div>
 
-            <input type="hidden" name="_csrf" value={props.csrf} />
-            <input className="formSubmit" type="submit" value="Change Password"/>
-          </form>
+        <input type="hidden" name="_csrf" value={props.csrf} />
+        <input className="formSubmit" type="submit" value="Change Password" />
+      </form>
     </div>
-    );
+  );
 };
 
 const SearchForm = (props) => {
@@ -152,7 +151,7 @@ const SearchUserForm = (props) => {
       <form id="searchUserForm"
         name="searchUserForm"
         onSubmit={handleUserSearch}
-        action="/getReviews"
+        action="/getUsers"
         method="POST"
         className="searchUserForm"
       >
@@ -168,11 +167,11 @@ const GamerList = function (props) {
   if (props.gamers.length === 0) {
     return (
       <div className="gamerList">
-        <h3 className="emptyGamer">No reviews posted</h3>
+        <h3 className="emptyGamer">No reviews available</h3>
       </div>
     );
   }
-  
+
   let number = 0;
 
   const gamerNodes = props.gamers.map(function (gamer) {
@@ -183,13 +182,13 @@ const GamerList = function (props) {
         <h3 className="gamerName"> {gamer.name} </h3>
         <h3 className="gamerRecommend"> Recommended: {gamer.recommend} </h3>
         <h3 className="gamerReview"> {gamer.review} </h3>
-        
+
         <form id={"delForm" + number} onSubmit={handleDelete} name="delForm" action="/deleteReview" method="POST">
-          <input type="hidden" name="_csrf" value={csurfToken}/>
-          <input name="gamerid" type="hidden" value={gamer._id}/>
-          <button type="submit" title="Delete Review">poopoopeepee</button>
+          <input type="hidden" name="_csrf" value={csurfToken} />
+          <input name="gamerid" type="hidden" value={gamer._id} />
+          <button type="submit" title="Delete Review">Delete</button>
         </form>
-        
+
       </div>
     );
   });
@@ -226,6 +225,12 @@ const loadGamersFromServer = () => {
         <GamerList gamers={data.gamers} />, document.querySelector("#gamers")
       );
     });
+  } else if (URL == "sers") {
+    sendAjax('GET', '/getUsers', null, (data) => {
+      ReactDOM.render(
+        <GamerList gamers={data.gamers} />, document.querySelector("#gamers")
+      );
+    });
   }
 };
 
@@ -252,8 +257,16 @@ const setup = function (csrf) {
     loadGamersFromServer();
   }
 
+  // User Search Page
+  if (URL == "sers") {
+    ReactDOM.render(
+      <SearchUserForm csrf={csrf} />, document.querySelector("#searchGamer")
+    );
+    loadGamersFromServer();
+  }
+
   // If account, home or search page
-  if (URL == "ount" || URL == "home" || URL == "arch") {
+  if (URL == "ount" || URL == "home" || URL == "arch" || URL == "sers") {
     ReactDOM.render(
       <GamerList gamers={[]} />, document.querySelector("#gamers")
     );
@@ -275,29 +288,29 @@ const CheckGamer = function (props) {
   return false;
 };
 
-const passChange = (e) =>{
-    e.preventDefault();
-    
-    if( $("#pass").val() == '' || $("#pass2").val() == '' || $("#currentPass").val() == '') {
-        handleError("All fields required");
-        return false;
-    }
+const passChange = (e) => {
+  e.preventDefault();
 
-    if($("#pass").val() !== $("#pass2").val()) {
-        handleError("The new passwords don't match");
-        return false;
-    }
-    
-    sendAjax('POST', $("#changePassForm").attr("action"), $("#changePassForm").serialize(),
-    (result)=>{
-        handleError(result.message);
-    }, 
-    (xhr, status, error) =>{
-        var messageObj = JSON.parse(xhr.responseText);
-        handleError(messageObj.error);
-    });
-    
+  if ($("#pass").val() == '' || $("#pass2").val() == '' || $("#currentPass").val() == '') {
+    handleError("All fields required");
     return false;
+  }
+
+  if ($("#pass").val() !== $("#pass2").val()) {
+    handleError("The new passwords don't match");
+    return false;
+  }
+
+  sendAjax('POST', $("#changePassForm").attr("action"), $("#changePassForm").serialize(),
+    (result) => {
+      handleError(result.message);
+    },
+    (xhr, status, error) => {
+      var messageObj = JSON.parse(xhr.responseText);
+      handleError(messageObj.error);
+    });
+
+  return false;
 };
 
 $(document).ready(function () {

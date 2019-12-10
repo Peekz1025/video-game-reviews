@@ -1,6 +1,7 @@
 const models = require('../models');
 const Gamer = models.Gamer;
 let gameTitle = '';
+let username = '';
 
 const accountPage = (req, res) => {
   Gamer.GamerModel.findByOwner(req.session.account._id, (err, docs) => {
@@ -46,7 +47,7 @@ const usersPage = (req, res) => {
         error: 'An error occured!',
       });
     }
-    return res.render('search', { csrfToken: req.csrfToken(), gamers: docs });
+    return res.render('users', { csrfToken: req.csrfToken(), gamers: docs });
   });
 };
 
@@ -91,10 +92,7 @@ const getReviews = (request, response) => {
   const req = request;
   const res = response;
 
-  console.log(JSON.stringify(req.body.name));
-
   if (req.body.name !== undefined) {
-    console.log(JSON.stringify(req.body.name));
     gameTitle = req.body.name;
   }
 
@@ -102,6 +100,23 @@ const getReviews = (request, response) => {
     if (err) {
       console.log(err);
       return res.status(400).json({ error: 'An error occured!' });
+    }
+    return res.json({ gamers: docs });
+  });
+};
+
+const getUsers = (request, response) => {
+  const req = request;
+  const res = response;
+
+  if (req.body.name !== undefined) {
+    username = req.body.name;
+  }
+
+  return Gamer.GamerModel.findByUser(username, (err, docs) => {
+    if (err) {
+      console.log(err);
+      return res.status(400).json({ error: 'An error occurred' });
     }
     return res.json({ gamers: docs });
   });
@@ -138,16 +153,13 @@ const getRecentGamers = (request, response) => {
 const deleteReview = (request, response) => {
   const req = request;
   const res = response;
-  
-  console.log(`hi`);
 
-  //const deletePromise = app.mainDB.collection('replays').deleteOne({ id: req.body.gamerid });
   return Gamer.GamerModel.deleteOne({ _id: req.body.gamerid }, (err2) => {
-    if(err2) {
+    if (err2) {
       return res.json({ err2 });
     }
-     console.log("console statement"); 
-    return res.json({ message: 'Review deleted!' }); 
+    console.log('console statement');
+    return res.json({ message: 'Review deleted!' });
   });
 };
 
@@ -155,6 +167,7 @@ module.exports.homePage = homePage;
 module.exports.accountPage = accountPage;
 module.exports.searchPage = searchPage;
 module.exports.usersPage = usersPage;
+module.exports.getUsers = getUsers;
 module.exports.getGamers = getGamers;
 module.exports.getRecentGamers = getRecentGamers;
 module.exports.make = makeGamer;
