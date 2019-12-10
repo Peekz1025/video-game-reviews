@@ -100,7 +100,7 @@ nav:nth-child(1) {
   margin-top: 5px;
 }
 
-.searchForm {
+.searchForm,.searchUserForm {
   background-color: #EA638C;
   border: 0px solid #121113;
   border-radius: 4px;
