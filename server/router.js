@@ -27,6 +27,8 @@ const router = (app) => {
   app.get('/users', mid.requireLogin, controllers.Gamer.usersPage);
   app.get('/getUsers', mid.requireLogin, controllers.Gamer.getUsers);
   app.post('/getUsers', mid.requireLogin, controllers.Gamer.getUsers);
+  
+//  app.post('/deleteAccountServer', mid.requiresLogin, mid.requiresSecure, controllers.Account.deleteAccount);
 
   app.get('/', mid.requireSecure, mid.requireLogout, controllers.Account.loginPage);
 };

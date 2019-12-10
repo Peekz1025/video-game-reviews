@@ -141,6 +141,28 @@ const changePass = (request, response) => {
   );
 };
 
+// we tried making a function to Delete the
+// user's account, but couldn't finish
+//
+//const deleteAccountServer = (request, response) => {
+//  const req = request;
+//  const res = response;
+//  
+//  Account.AccountModel.authenticate(req.session.account.username, req.body.currentPass,
+//    (err, doc) => {
+//      if (err) {
+//        return res.json({ error: 'An error occured' });
+//      }
+//      if (!doc) {
+//        return res.status(401).json({ error: 'Current password is incorrect' });
+//      }
+//      console.log('console statement');
+//      return res.json({ message: 'Review deleted!' });
+//    });
+//  return true;
+//};
+
+
 const getToken = (request, response) => {
   const req = request;
   const res = response;
@@ -158,3 +180,4 @@ module.exports.logout = logout;
 module.exports.signup = signup;
 module.exports.getToken = getToken;
 module.exports.changePass = changePass;
+//module.exports.deleteAccountServer = deleteAccountServer;

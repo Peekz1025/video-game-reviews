@@ -112,6 +112,10 @@ const getUsers = (request, response) => {
   if (req.body.name !== undefined) {
     username = req.body.name;
   }
+  
+  // we tried going off the id, but it didnt work right
+  // a few different ways didn't work, so heres some
+  // of what we tried
 
   return Gamer.GamerModel.findByUser(username, (err, docs) => {
     if (err) {

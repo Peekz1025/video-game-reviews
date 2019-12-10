@@ -329,6 +329,22 @@ const passChange = (e) => {
   return false;
 };
 
+
+// we tried making a function to Delete the
+// user's account, but couldn't finish
+//const deleteAccountClient = (e) =>{
+//    e.preventDefault();
+//    const id = "#" + e.target.id;
+//    sendAjax('POST', $(id).attr("action"), $(id).serialize(), redirect, 
+//    (xhr, status, error) =>{
+//        var messageObj = JSON.parse(xhr.responseText);
+//        showMessage(messageObj.error);
+//        }
+//    );
+//    return false;
+//};
+
+
 $(document).ready(function () {
   getToken();
 });
