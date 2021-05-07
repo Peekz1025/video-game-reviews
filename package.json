@@ -40,7 +40,7 @@
     "mongodb": "^3.3.3",
     "mongoose": "^4.13.19",
     "serve-favicon": "^2.5.0",
-    "underscore": "^1.8.3"
+    "underscore": "^1.12.1"
   },
   "devDependencies": {
     "babel-cli": "^6.18.0",
